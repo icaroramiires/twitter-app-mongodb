@@ -1,0 +1,5 @@
+package br.edu.ifba.curso.webservice.mongo;
+
+public class Usuario {
+
+}

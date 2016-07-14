@@ -1,0 +1,63 @@
+package br.edu.ifba.curso.webservice.mongo.db;
+
+
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+import br.edu.ifba.curso.webservice.mongo.Usuario;
+
+public class FachadaBD {
+	private static final String HOST = "localhost";
+	private static final int PORT =  27017;
+	private static final String DB_NAME = "twitter-mongo";
+	
+	private MongoClient client;
+	private MongoDatabase db;
+	
+	private static FachadaBD instancia = null;
+	
+	public static FachadaBD getInstancia() {
+		if (instancia == null) {
+			instancia = new FachadaBD();
+		}
+		return instancia;
+	}
+	
+	private FachadaBD() {}
+	
+	public MongoDatabase getDB() {
+		client = new MongoClient(HOST, PORT);
+		db = client.getDatabase(DB_NAME);
+		return db;
+	}
+	
+	// INSERT 
+	public void insertOne(Usuario novo) {
+		MongoDatabase db  = FachadaBD.getInstancia().getDB();
+		MongoCollection colecaoUsuario = db.getCollection("usuarios");
+		
+		Document documento = new Document();
+		documento.append("nome", novo.getNome());
+		documento.append("userName", novo.getUserName());
+		documento.append("email", novo.getEmail());
+		documento.append("senha", novo.getSenha());
+		
+		colecaoUsuario.insertOne(documento);
+	}
+	
+	// FIND-ONE
+	public Usuario findOne(String username) {
+		MongoDatabase db  = FachadaBD.getInstancia().getDB();
+		MongoCollection colecaoUsuario = db.getCollection("usuarios");
+		
+		FindIterable<Document> i = colecaoUsuario.find();
+		return null;
+		
+		
+	}
+	
+}

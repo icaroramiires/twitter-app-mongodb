@@ -1,0 +1,6 @@
+package br.edu.ifba.curso.webservice.mongo;
+
+public class Usuario {
+	private String id;
+	private String nome;
+}

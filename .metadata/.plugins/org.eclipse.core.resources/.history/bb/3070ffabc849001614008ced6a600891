@@ -1,0 +1,7 @@
+package br.edu.ifba.curso.webservice.mongo;
+
+public class Twitte {
+	String id;
+	String conteudo;
+	
+}

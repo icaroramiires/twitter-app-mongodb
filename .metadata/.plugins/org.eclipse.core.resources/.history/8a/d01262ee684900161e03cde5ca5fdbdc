@@ -1,0 +1,8 @@
+package br.edu.ifba.curso.webservice.mongo.db;
+
+public class FachadaBD {
+	private static final String HOST = "localhost";
+	private static final int PORT =  27017;
+	private static final String DB_NAME = "twitter-mongo";
+	private static FachadaBD
+}
