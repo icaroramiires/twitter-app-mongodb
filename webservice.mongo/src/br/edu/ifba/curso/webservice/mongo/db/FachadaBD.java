@@ -7,10 +7,13 @@ import org.bson.Document;
 
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.ReturnDocument;
 
+import br.edu.ifba.curso.webservice.mongo.Twitte;
 import br.edu.ifba.curso.webservice.mongo.Usuario;
 
 public class FachadaBD {
@@ -43,6 +46,7 @@ public class FachadaBD {
 				getDB().getCollection(colecao);
 		return col;
 	}
+	
 	// INSERT 
 	public void insertOne(Usuario novo) {
 		MongoCollection colecaoUsuario = FachadaBD.getInstancia().
@@ -122,10 +126,50 @@ public class FachadaBD {
 	}
 	
 	public void delete(String userName) {
-		MongoCollection colecaoUsuario = FachadaBD.getInstancia().
-				getColecao("usuario");
+		MongoCollection colecaoUsuario = FachadaBD.getInstancia()
+				.getColecao("usuario");
 		
 		colecaoUsuario.deleteOne(new Document("userName", userName));
 		
+	}
+	
+	public void insertOne(String userName, Twitte twitte) {
+		MongoCollection colecaoUsuario = FachadaBD.getInstancia()
+				.getColecao("usuario");
+		MongoCollection colecaoTwitte = FachadaBD.getInstancia()
+				.getColecao("twitte");
+		Usuario usuario = FachadaBD.getInstancia().findOne(userName);
+		Document documento = new Document();
+		documento.append("idUser", usuario.getId());
+		documento.append("conteudo", twitte.getConteudo());
+		colecaoTwitte.insertOne(documento);
+	}
+	
+	public List<Twitte> buscarTwittes(String userName) {
+		MongoCollection colecaoUsuario = FachadaBD.getInstancia()
+				.getColecao("usuario");
+		MongoCollection colecaoTwitte = FachadaBD.getInstancia()
+				.getColecao("twitte");
+		
+		Usuario usuario = FachadaBD.getInstancia().findOne(userName);
+		Document documento = new Document();
+		
+		List<Twitte> twittes = new ArrayList<Twitte>();
+		FindIterable<Document> i = colecaoTwitte.find(new Document("idUser", usuario.getId()));
+		
+		i.forEach(new Block<Document>() {
+
+			@Override
+			public void apply(Document documento) {
+				Twitte twitte = new Twitte();
+				
+				twitte.setId(documento.get("_id").toString());
+				twitte.setIdUser(documento.getString("idUser"));
+				twitte.setConteudo(documento.getString("conteudo"));
+				
+				twittes.add(twitte);
+			}
+		});
+		return twittes;
 	}
 }

@@ -1,5 +1,0 @@
-package br.edu.ifba.curso.webservice.mongo.db;
-
-public class FachadaBD {
-
-}

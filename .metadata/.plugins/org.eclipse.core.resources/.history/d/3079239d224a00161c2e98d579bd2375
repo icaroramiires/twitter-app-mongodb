@@ -1,0 +1,25 @@
+package br.edu.ifba.curso.webservice.mongo;
+
+public class Twitte {
+	String id;
+	String conteudo;
+	
+	public Twitte(String id, String conteudo) {
+		super();
+		this.id = id;
+		this.conteudo = conteudo;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getConteudo() {
+		return conteudo;
+	}
+	public void setConteudo(String conteudo) {
+		this.conteudo = conteudo;
+	}
+}

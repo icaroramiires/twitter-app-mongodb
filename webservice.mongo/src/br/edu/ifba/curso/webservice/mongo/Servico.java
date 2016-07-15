@@ -75,4 +75,26 @@ public class Servico {
 			@PathParam("userName") String userName){
 		FachadaBD.getInstancia().delete(userName);
 	}
+	
+	
+	// TWITTE 
+	@POST 
+	@Path("/usuario/{userName}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void inserirTwitter(
+			@PathParam("userName") String userName,
+			@FormParam("conteudo") String conteudo ) {
+		Twitte twitte = new Twitte();
+		twitte.setConteudo(conteudo);
+		FachadaBD.getInstancia().insertOne(userName, twitte);
+	}
+	
+	@GET 
+	@Path("/usuario/{userName}/twittes")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Twitte> listarTwittes(
+				@PathParam("userName") String userName
+			) {
+		return FachadaBD.getInstancia().buscarTwittes(userName);
+	}
 }

@@ -1,8 +1,0 @@
-package br.edu.ifba.curso.webservice.mongo;
-
-import javax.ws.rs.Path;
-
-@Path("ws")
-public class Usuarios {
-
-}

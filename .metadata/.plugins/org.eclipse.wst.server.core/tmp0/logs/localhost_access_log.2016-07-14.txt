@@ -74,3 +74,16 @@
 0:0:0:0:0:0:0:1 - - [14/Jul/2016:16:30:25 -0300] "GET /webservice.mongo/v1/servico/usuario/_icaroramiires HTTP/1.1" 200 140
 0:0:0:0:0:0:0:1 - - [14/Jul/2016:16:30:34 -0300] "DELETE /webservice.mongo/v1/servico/usuario/_icaroramiires HTTP/1.1" 204 -
 0:0:0:0:0:0:0:1 - - [14/Jul/2016:16:30:40 -0300] "GET /webservice.mongo/v1/servico/usuario/ HTTP/1.1" 200 12
+127.0.0.1 - - [14/Jul/2016:22:05:19 -0300] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [14/Jul/2016:22:08:33 -0300] "GET /webservice.mongo/v1/servico/usuario/ HTTP/1.1" 200 12
+0:0:0:0:0:0:0:1 - - [14/Jul/2016:22:08:44 -0300] "POST /webservice.mongo/v1/servico/usuario/ HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [14/Jul/2016:22:09:03 -0300] "POST /webservice.mongo/v1/servico/usuario/ HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [14/Jul/2016:22:09:07 -0300] "GET /webservice.mongo/v1/servico/usuario/ HTTP/1.1" 200 295
+0:0:0:0:0:0:0:1 - - [14/Jul/2016:22:10:19 -0300] "GET /webservice.mongo/v1/servico/usuario/_ica HTTP/1.1" 200 91
+0:0:0:0:0:0:0:1 - - [14/Jul/2016:22:10:22 -0300] "GET /webservice.mongo/v1/servico/usuario/_icaroramiires HTTP/1.1" 200 155
+0:0:0:0:0:0:0:1 - - [14/Jul/2016:22:11:49 -0300] "POST /webservice.mongo/v1/servico/usuario/_icaroramiires HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [14/Jul/2016:22:14:09 -0300] "POST /webservice.mongo/v1/servico/usuario/_icaroramiires HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [14/Jul/2016:23:09:12 -0300] "GET /webservice.mongo/v1/servico/usuario/_icaroramiires HTTP/1.1" 200 155
+127.0.0.1 - - [14/Jul/2016:23:31:02 -0300] "GET / HTTP/1.1" 404 994
+127.0.0.1 - - [14/Jul/2016:23:39:22 -0300] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [14/Jul/2016:23:40:38 -0300] "GET /webservice.mongo/v1/servico/usuario/_icaroramiires/twittes HTTP/1.1" 200 195
