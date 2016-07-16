@@ -1,0 +1,79 @@
+package br.edu.ifba.curso.webservice.mongo.db;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bson.Document;
+
+import com.mongodb.Block;
+import com.mongodb.MongoClient;
+import com.mongodb.client.AggregateIterable;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.ReturnDocument;
+
+import br.edu.ifba.curso.webservice.mongo.Twitte;
+import br.edu.ifba.curso.webservice.mongo.Usuario;
+
+public class FachadaBD {
+	private static final String HOST = "localhost";
+	private static final int PORT =  27017;
+	private static final String DB_NAME = "twitter-mongo";
+	
+	private MongoClient client;
+	private MongoDatabase db;
+	
+	private static FachadaBD instancia = null;
+	
+	public static FachadaBD getInstancia() {
+		if (instancia == null) {
+			instancia = new FachadaBD();
+		}
+		return instancia;
+	}
+	
+	private FachadaBD() {}
+	
+	public MongoDatabase getDB() {
+		return null;
+	}
+	
+	public MongoCollection getColecao(String colecao) {
+		return null;
+	}
+	
+	// INSERT 
+	public void insertOne(Usuario novo) {
+
+	}
+	
+	// FIND
+	public List<Usuario> find() {
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+
+		return usuarios;
+	}
+	
+	// FIND-ONE
+	public Usuario findOne(String userName) {
+		Usuario usuario = new Usuario();
+
+		return usuario;
+	}
+	
+	public void update(String userName, Usuario user) {
+	}
+	
+	public void delete(String userName) {
+	}
+	
+	public void insertOne(String userName, Twitte twitte) {
+	}
+	
+	public List<Twitte> buscarTwittes(String userName) {
+		List<Twitte> twittes = new ArrayList<Twitte>();
+
+		return twittes;
+	}
+}

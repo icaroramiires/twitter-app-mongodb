@@ -42,15 +42,13 @@ public class FachadaBD {
 	}
 	
 	public MongoCollection getColecao(String colecao) {
-		MongoCollection col = FachadaBD.getInstancia().
-				getDB().getCollection(colecao);
+		MongoCollection col = getDB().getCollection(colecao);
 		return col;
 	}
 	
 	// INSERT 
 	public void insertOne(Usuario novo) {
-		MongoCollection colecaoUsuario = FachadaBD.getInstancia().
-				getColecao("usuario");
+		MongoCollection colecaoUsuario = getColecao("usuario");
 		
 		Document documento = new Document();
 		documento.append("nome", novo.getNome());
@@ -63,8 +61,7 @@ public class FachadaBD {
 	
 	// FIND
 	public List<Usuario> find() {
-		MongoCollection colecaoUsuario = FachadaBD.getInstancia().
-				getColecao("usuario");
+		MongoCollection colecaoUsuario = getColecao("usuario");
 		
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		FindIterable<Document> i = colecaoUsuario.find();
@@ -90,8 +87,7 @@ public class FachadaBD {
 	
 	// FIND-ONE
 	public Usuario findOne(String userName) {
-		MongoCollection colecaoUsuario = FachadaBD.getInstancia().
-				getColecao("usuario");
+		MongoCollection colecaoUsuario = getColecao("usuario");
 		Usuario usuario = new Usuario();
 		FindIterable<Document> i = colecaoUsuario.find(new Document("userName", userName));
 		
@@ -111,10 +107,9 @@ public class FachadaBD {
 	}
 	
 	public void update(String userName, Usuario user) {
-		MongoCollection colecaoUsuario = FachadaBD.getInstancia().
-				getColecao("usuario");
+		MongoCollection colecaoUsuario = getColecao("usuario");
 		
-		Usuario usuario = FachadaBD.getInstancia().findOne(userName);
+		Usuario usuario = findOne(userName);
 		
 		Document documento = new Document();
 		documento.append("nome", user.getNome());
@@ -126,19 +121,15 @@ public class FachadaBD {
 	}
 	
 	public void delete(String userName) {
-		MongoCollection colecaoUsuario = FachadaBD.getInstancia()
-				.getColecao("usuario");
+		MongoCollection colecaoUsuario = getColecao("usuario");
 		
 		colecaoUsuario.deleteOne(new Document("userName", userName));
 		
 	}
 	
 	public void insertOne(String userName, Twitte twitte) {
-		MongoCollection colecaoUsuario = FachadaBD.getInstancia()
-				.getColecao("usuario");
-		MongoCollection colecaoTwitte = FachadaBD.getInstancia()
-				.getColecao("twitte");
-		Usuario usuario = FachadaBD.getInstancia().findOne(userName);
+		MongoCollection colecaoTwitte = getColecao("twitte");
+		Usuario usuario = findOne(userName);
 		Document documento = new Document();
 		documento.append("idUser", usuario.getId());
 		documento.append("conteudo", twitte.getConteudo());
@@ -146,12 +137,9 @@ public class FachadaBD {
 	}
 	
 	public List<Twitte> buscarTwittes(String userName) {
-		MongoCollection colecaoUsuario = FachadaBD.getInstancia()
-				.getColecao("usuario");
-		MongoCollection colecaoTwitte = FachadaBD.getInstancia()
-				.getColecao("twitte");
+		MongoCollection colecaoTwitte = getColecao("twitte");
 		
-		Usuario usuario = FachadaBD.getInstancia().findOne(userName);
+		Usuario usuario = findOne(userName);
 		Document documento = new Document();
 		
 		List<Twitte> twittes = new ArrayList<Twitte>();

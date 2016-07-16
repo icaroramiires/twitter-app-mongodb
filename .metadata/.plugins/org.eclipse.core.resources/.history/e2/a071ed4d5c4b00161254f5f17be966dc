@@ -7,10 +7,14 @@ import org.bson.Document;
 
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.ReturnDocument;
+import com.sun.research.ws.wadl.Doc;
 
+import br.edu.ifba.curso.webservice.mongo.Twitte;
 import br.edu.ifba.curso.webservice.mongo.Usuario;
 
 public class FachadaBD {
@@ -38,94 +42,99 @@ public class FachadaBD {
 		return db;
 	}
 	
-	public MongoCollection getColecaoUsuario() {
-		MongoCollection colecaoUsuario = FachadaBD.getInstancia().
-				getDB().getCollection("usuarios");
-		return 
+	public MongoCollection getColecao(String colecao) {
+		MongoCollection coll = FachadaBD.getInstancia().
+				getDB().getCollection(colecao);
+		return coll;
 	}
+	
 	// INSERT 
 	public void insertOne(Usuario novo) {
-		MongoDatabase db  = FachadaBD.getInstancia().getDB();
-		MongoCollection colecaoUsuario = db.getCollection("usuarios");
-		
+		MongoCollection collUsuario = FachadaBD.
+				getInstancia().getColecao("usuario");
 		Document documento = new Document();
 		documento.append("nome", novo.getNome());
 		documento.append("userName", novo.getUserName());
 		documento.append("email", novo.getEmail());
 		documento.append("senha", novo.getSenha());
 		
-		colecaoUsuario.insertOne(documento);
+		collUsuario.insertOne(documento);
+		
 	}
 	
 	// FIND
 	public List<Usuario> find() {
-		MongoDatabase db  = FachadaBD.getInstancia().getDB();
-		MongoCollection colecaoUsuario = db.getCollection("usuarios");
-		
 		List<Usuario> usuarios = new ArrayList<Usuario>();
-		FindIterable<Document> i = colecaoUsuario.find();
-		
+		MongoCollection collUsuario = FachadaBD.
+				getInstancia().getColecao("usuario");
+		FindIterable<Document> i = collUsuario.find();
 		i.forEach(new Block<Document>() {
 
 			@Override
-			public void apply(Document documento) {
+			public void apply(Document doc) {
 				Usuario usuario = new Usuario();
-				
-				usuario.setId(documento.get("_id").toString());
-				usuario.setNome(documento.getString("nome"));
-				usuario.setUserName(documento.getString("userName"));
-				usuario.setEmail(documento.getString("email"));
-				usuario.setSenha(documento.getString("senha"));
+				usuario.setId(doc.get("_id").toString());
+				usuario.setNome(doc.getString("nome"));
+				usuario.setUserName(doc.getString("userName"));
+				usuario.setEmail(doc.getString("email"));
+				usuario.setSenha(doc.getString("senha"));
 				
 				usuarios.add(usuario);
 			}
-			
 		});
 		return usuarios;
 	}
 	
 	// FIND-ONE
 	public Usuario findOne(String userName) {
-		MongoDatabase db  = FachadaBD.getInstancia().getDB();
-		MongoCollection colecaoUsuario = db.getCollection("usuarios");
 		Usuario usuario = new Usuario();
-		FindIterable<Document> i = colecaoUsuario.find(new Document("userName", userName));
+		MongoCollection collUsuario = FachadaBD.
+				getInstancia().getColecao("usuario");
+		FindIterable<Document> i = collUsuario.find(
+					new Document("userName", userName)
+				);
 		
 		i.forEach(new Block<Document>() {
 
 			@Override
-			public void apply(Document documento) {
-				usuario.setId(documento.get("_id").toString());
-				usuario.setNome(documento.getString("nome"));
-				usuario.setUserName(documento.getString("userName"));
-				usuario.setEmail(documento.getString("email"));
-				usuario.setSenha(documento.getString("senha"));
+			public void apply(Document doc) {
+				usuario.setId(doc.get("_id").toString());
+				usuario.setNome(doc.getString("nome"));
+				usuario.setUserName(doc.getString("userName"));
+				usuario.setEmail(doc.getString("email"));
+				usuario.setSenha(doc.getString("senha"));
 			}
-			
 		});
+		
 		return usuario;
 	}
 	
 	public void update(String userName, Usuario user) {
-		MongoDatabase db  = FachadaBD.getInstancia().getDB();
-		MongoCollection colecaoUsuario = db.getCollection("usuarios");
-		
-		Usuario usuario = FachadaBD.getInstancia().findOne(userName);
-		
+		MongoCollection coll = FachadaBD.getInstancia().
+				getDB().getCollection("usuario");
+		Usuario usuario = FachadaBD.getInstancia()
+				.findOne(userName);
 		Document documento = new Document();
 		documento.append("nome", user.getNome());
 		documento.append("userName", user.getUserName());
 		documento.append("email", user.getEmail());
 		documento.append("senha", user.getSenha());
+		coll.updateOne(
+				new Document
+				("userName", usuario.getUserName()),
+				new Document("$set", documento));
 		
-		colecaoUsuario.updateOne(new Document("userName", usuario.getUserName()), new Document("$set", documento));
 	}
 	
 	public void delete(String userName) {
-		MongoDatabase db  = FachadaBD.getInstancia().getDB();
-		MongoCollection colecaoUsuario = db.getCollection("usuarios");
-		
-		colecaoUsuario.deleteOne(new Document("userName", userName));
-		
+	}
+	
+	public void insertOne(String userName, Twitte twitte) {
+	}
+	
+	public List<Twitte> buscarTwittes(String userName) {
+		List<Twitte> twittes = new ArrayList<Twitte>();
+
+		return twittes;
 	}
 }

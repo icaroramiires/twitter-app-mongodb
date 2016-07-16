@@ -1,0 +1,90 @@
+package br.edu.ifba.curso.webservice.mongo;
+
+import java.util.List;
+
+import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import br.edu.ifba.curso.webservice.mongo.db.FachadaBD;
+
+@Path("servico")
+public class Servico {
+	
+	@POST
+	@Path("/usuario")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void cadastrarUsuario(
+				@FormParam("nome") String nome,
+				@FormParam("userName") String userName,
+				@FormParam("email") String email, 
+				@FormParam("senha") String senha ) {
+	
+		Usuario usuario = new Usuario();
+		usuario.setNome(nome);
+		usuario.setUserName(userName);
+		usuario.setEmail(email);
+		usuario.setSenha(senha);
+		
+		FachadaBD.getInstancia().insertOne(usuario);
+	}
+	
+	@GET
+	@Path("/usuario")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Usuario> listarUsuarios() {
+		return null;
+	}
+	
+	@GET
+	@Path("/usuario/{userName}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Usuario buscarUsuario(
+				@PathParam("userName") String userName
+			) {
+		return null;
+	}
+	
+	@PUT
+	@Path("/usuario/{userName}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void atualizarUsuario(
+				@PathParam("userName") String userName,
+				@FormParam("nome") String nome, 
+				@FormParam("userName") String novoUserName, 
+				@FormParam("email") String email, 
+				@FormParam("senha") String senha) {
+	}
+	
+	@DELETE
+	@Path("/usuario/{userName}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void deleteUsuario(
+			@PathParam("userName") String userName){
+	}
+	
+	
+	// TWITTE 
+	@POST 
+	@Path("/usuario/{userName}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public void inserirTwitter(
+			@PathParam("userName") String userName,
+			@FormParam("conteudo") String conteudo ) {
+	}
+	
+	@GET 
+	@Path("/usuario/{userName}/twittes")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Twitte> listarTwittes(
+				@PathParam("userName") String userName
+			) {
+		return null;
+	}
+}
